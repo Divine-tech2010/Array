@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Tank Simulation</title>
+    <link rel="stylesheet" href="WTS.css">
+</head>
+<body>
+    
+    <main class="dashboard">
+        <header>
+            <h1>Water Tank Simulator</h1>
+            <p>Live Water Monitoring System</p>
+            <span>100L TANK</span>
+        </header>
+
+        <section class="panel">
+            <h2>Tank Guage</h2>
+            
+            <div class="tank-stage">
+                <div class="scale">
+                    <span>100%</span>
+                    <span>75%</span>
+                    <span>50%</span>
+                    <span>25%</span>
+                    <span>0%</span>
+                </div>
+
+                <div class="tank">
+                    <div id="water" class="water"></div>
+                    <div class="tank-reading">
+                        <strong id="tankPercent">100%</strong>
+                        <span id="tankLitres">100L</span>
+                    </div>
+                </div>
+            </div>
+
+            <span id="statusBadge">NORMAL</span>
+            <div id="alertBox" class="alert hidden">LOW WATER ALERT!</div>
+            <div id="criticalBox" class="alert hidden">FETCHING BLOCKED! <br> Insufficient water.</div>
+
+        </section>
+
+        <section class="stats-grid">
+            <div class="stat-card">
+                <p>Water Remaining</p>
+                <h2 id="waterStat">100L</h2>
+            </div>
+
+            <div class="stat-card">
+                <p>Total Operations</p>
+                <h2 id="operationsStat">0</h2>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Tank Controls</h2>
+            <button id="fetchButton">Fetch Water (-12L)</button>
+            <button id="refillButton">Refill (+50L)</button>
+            <button id="resetButton">Reset</button>
+            <p id="controlMessage">The Tank is ready</p>
+        </section>
+
+        <section class="panel">
+            <h2>Terminal</h2>
+            <div id="terminal">
+                <p>Simulation Started.</p>
+                <p>Initial water level: 100L</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="WTS.js"></script>
+</body>
+</html>
