@@ -201,3 +201,21 @@ function fix23(nums) {
   }
   return nums;
 }
+
+// Start with 2 number arrays, a and b, of any length. Return how many of the arrays have 1 as their first element.
+
+// Examples
+
+// start1([1, 2, 3], [1, 3]) → 2
+// start1([7, 2, 3], [1]) → 1
+// start1([1, 2], []) → 1
+
+function start1(a, b) {
+ if (a.includes(1) && b.includes(1)) {
+  return 2;
+ }  
+ if (a.includes(1) || b.includes(1)) {
+  return 1;
+ }
+ return 0;
+}
