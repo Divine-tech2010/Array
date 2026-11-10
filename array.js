@@ -184,3 +184,20 @@ function makeLast(nums) {
 function double23(nums) {
   return (nums[0] === 2 && nums[1] === 2) || (nums[0] === 3 && nums[1] === 3);
 }
+
+// Given a number array length 3, if there is a 2 in the array immediately followed by a 3, set the 3 element to 0. Return the changed array.
+
+// Examples
+
+// fix23([1, 2, 3]) → [1,2,0]
+// fix23([2, 3, 5]) → [2,0,5]
+// fix23([1, 2, 1]) → [1,2,1]
+
+function fix23(nums) {
+  for (let i = 0; i < nums.length - 1; i++) {
+    if (nums[i] === 2 && nums[i + 1] === 3) {
+      nums[i + 1] = 0;
+    }
+  }
+  return nums;
+}
