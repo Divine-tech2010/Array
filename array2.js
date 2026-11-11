@@ -143,3 +143,21 @@ function has22(nums) {
   }
   return false;
 }
+
+// Given an array of numbers, return true if the array contains no 1's and no 3's.
+
+// Examples
+
+// lucky13([0, 2, 4]) → true
+// lucky13([1, 2, 3]) → false
+// lucky13([1, 2, 4]) → false
+
+function lucky13(nums) {
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] === 1 || nums[i] === 3) {
+      return false; // if we find a 1 or 3, fail immediately
+    }
+  }
+  return true;
+}
+
