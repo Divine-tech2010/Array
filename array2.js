@@ -339,3 +339,14 @@ function matchUp(nums1, nums2) {
 
 }
 
+// Given an array of numbers, return true if the array contains two 7's next to each other, or there are two 7's separated by one Element, such as with [7, 1, 7].
+
+// Examples 
+
+// has77([1, 7, 7]) → true 
+// has77([1, 7, 1, 7]) → true 
+// has77([1, 7, 1, 1, 7]) → false 
+
+function has77(nums) {
+
+}
