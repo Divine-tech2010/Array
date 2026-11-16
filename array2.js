@@ -350,3 +350,15 @@ function matchUp(nums1, nums2) {
 function has77(nums) {
 
 }
+
+// Given an array of numbers, return true if there is a 1 in the array with a 2 somewhere later in the array. 
+
+// Examples 
+
+// has12([1, 3, 2]) → true 
+// has22([3, 1, 2]) → true 
+// has22([[3, 1, 4, 5, 2]]) → true  
+
+function has12(nums) {
+
+}
