@@ -324,7 +324,20 @@ function isEverywhere(nums, val) {
 // either24([4, 4, 1, 2, 2]) → false
 
 function either24(nums) {
+  let has22 = false;
+  let has44 = false;
 
+  for (let i = 0; i < nums.length - 1; i++) {
+    if (nums[i] === 2 && nums[i + 1] === 2) {
+            has22 = true;
+    }
+
+    if (nums[i] === 4 && nums[i + 1] === 4) {
+            has44 = true;
+    }
+  }
+
+    return has22 !== has44;
 }
 
 // Given arrays nums1 and nums2 of the same length, for every element in nums1, consider the corresponding element in nums2 (at the same index). Return the count of the number of times that the two elements differ by 2 or less, but are not equal. 
@@ -336,8 +349,18 @@ function either24(nums) {
 // matchUp ([1, 2, 3], [2, 3, 3]) → 2
 
 function matchUp(nums1, nums2) {
+    let count = 0;
 
+    for (let i = 0; i < nums1.length; i++) {
+        if (nums1[i] !== nums2[i] &&
+            Math.abs(nums1[i] - nums2[i]) <= 2) {
+            count++;
+        }
+    }
+
+    return count;
 }
+
 
 // Given an array of numbers, return true if the array contains two 7's next to each other, or there are two 7's separated by one Element, such as with [7, 1, 7].
 
@@ -348,7 +371,18 @@ function matchUp(nums1, nums2) {
 // has77([1, 7, 1, 1, 7]) → false 
 
 function has77(nums) {
+  for (let i = 0; i < nums.length - 1; i++) {
+        if (nums[i] === 7 && nums[i + 1] === 7) {
+            return true;
+        }
 
+        if (i < nums.length - 2 &&
+            nums[i] === 7 && nums[i + 2] === 7) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 // Given an array of numbers, return true if there is a 1 in the array with a 2 somewhere later in the array. 
@@ -360,7 +394,19 @@ function has77(nums) {
 // has22([[3, 1, 4, 5, 2]]) → true  
 
 function has12(nums) {
+  let foundOne = false;
 
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] === 1) {
+            foundOne = true;
+        }
+
+        if (nums[i] === 2 && foundOne) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 // Given an array of numbers, return true if the array contains either 3 even or 3 odd values all next to each other. 
@@ -372,7 +418,16 @@ function has12(nums) {
 // modThree([2, 4, 2, 5]) → true 
 
 function modThree(nums) {
+  for (let i = 0; i < nums.length - 2; i++) {
+        if (
+            nums[i] % 2 === nums[i + 1] % 2 &&
+            nums[i + 1] % 2 === nums[i + 2] % 2
+        ) {
+            return true;
+        }
+    }
 
+    return false;
 }
 
 // Write a method that returns the median value of an array. The input array will never be empty. If the array is odd in length, the median is the valuie in the centre of the array. If the array is even, the median should be the average of the two middle values. Hint: You will need to ensure the input array is sorted - there is a sort() array method you can use for this step.
@@ -384,7 +439,15 @@ function modThree(nums) {
 // findTheMedian ([10, 12, 15]) → 12
 
 function findTheMedian(nums) {
+   nums.sort((a, b) => a - b);
 
+    let middle = Math.floor(nums.length / 2);
+
+    if (nums.length % 2 !== 0) {
+        return nums[middle];
+    } else {
+        return (nums[middle - 1] + nums[middle]) / 2;
+    }
 }
 
 // Given an array of numbers, return true if the value 3 appears in the array exactly 3 times, and no 3's are next to each other.
@@ -396,7 +459,19 @@ function findTheMedian(nums) {
 // haveThree ([3, 4, 3, 3, 4]) → false 
 
 function haveThree(nums) {
+  let count = 0;
 
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] === 3) {
+            count++;
+
+            if (i > 0 && nums[i - 1] === 3) {
+                return false;
+            }
+        }
+    }
+
+    return count === 3;
 }
 
 // Given an array of numbers, return true if every 2 that appears in the array is next to another 2.
@@ -408,7 +483,18 @@ function haveThree(nums) {
 // twoTwo ([2, 2, 4, 2]) → false
 
 function twoTwo(nums) {
+ for (let i = 0; i < nums.length; i++) {
+        if (nums[i] === 2) {
+            let left = i > 0 && nums[i - 1] === 2;
+            let right = i < nums.length - 1 && nums[i + 1] === 2;
 
+            if (!left && !right) {
+                return false;
+            }
+        }
+    }
+
+    return true;
 }
 
 // Return true if the group of N numbers at the start and end of the array are the same. For example, with [5, 6, 45, 99, 13, 5, 6], the ends are the same for n=0 and n=2, and false for n=1 and n=3. You may assume that n is the range 0..nums.length inclusive.For
@@ -420,7 +506,13 @@ function twoTwo(nums) {
 // sameEnds2 ([5, 6, 45, 99, 13, 5, 6], 3) → false 
 
 function sameEnds2(nums, len) {
+   for (let i = 0; i < len; i++) {
+        if (nums[i] !== nums[nums.length - len + i]) {
+            return false;
+        }
+    }
 
+    return true;
 }
 
 // Return true if the array contains, somewhere, three increasing adjacent numbers like ....4, 5, 6, ... or 23, 24, 25.
@@ -432,7 +524,16 @@ function sameEnds2(nums, len) {
 // tripleUp ([1, 2, 4]) → false 
 
 function tripleUp(nums) {
+  for (let i = 0; i < nums.length - 2; i++) {
+        if (
+            nums[i + 1] === nums[i] + 1 &&
+            nums[i + 2] === nums[i] + 2
+        ) {
+            return true;
+        }
+    }
 
+    return false;
 }
 
 // Given start and end numbers, return a new array containing the sequence of integers from start up to but not including end, so start=5 and end=10 yields [5, 6, 7, 8, 9]. The end number will be greater or equal to the start number. Note that a length- 0 array is valid.
@@ -444,7 +545,13 @@ function tripleUp(nums) {
 // fizzArray3 (1, 3) → [1, 2]
 
 function fizzArray3(start, end) {
+   let result = [];
 
+    for (let i = start; i < end; i++) {
+        result.push(i);
+    }
+
+    return result;
 }
 
 // Return an array that is "left shifted" by one -- so [6, 2, 5, 3] returns [2, 5, 3, 6]. You may modify and return the given array, or return a new array. 
@@ -456,7 +563,11 @@ function fizzArray3(start, end) {
 // shiftLeft ([1]) → [1]
 
 function shiftLeft() {
+   let first = nums.shift();
 
+    nums.push(first);
+
+    return nums;
 }
 
 // For each multiple of 10 in the given array change all the values following it to be that multiple of 10, until encountering another multiple of 10. So [2, 10, 3, 4, 20, 5] yields [2, 10, 10, 10, 20, 20].For
@@ -468,7 +579,19 @@ function shiftLeft() {
 // tenRun ([10, 1, 9, 20]) → [10, 10, 10, 20]
 
 function tenRun(nums){
+  let multiple = null;
 
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] % 10 === 0) {
+            multiple = nums[i];
+        }
+
+        if (multiple !== null) {
+            nums[i] = multiple;
+        }
+    }
+
+    return nums;
 }
 
 // Given a non-empty array of numbers, return a new array containing the elements from the original array that come before the first 4 in the original array. The original array will contain at least one 4.
@@ -480,7 +603,17 @@ function tenRun(nums){
 // pre4 ([1, 4, 4]) → [1]
 
 function pre4(nums){
+   let result = [];
 
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] === 4) {
+            break;
+        }
+
+        result.push(nums[i]);
+    }
+
+    return result;
 }
 
 // Given an non-empty array of numbers, return a new array containing the elements from the original array that come after the the last 4 in the original array. The original array will contain at least one 4.
@@ -492,7 +625,9 @@ function pre4(nums){
 // post4 ([4, 4, 1, 2, 3]) → [1, 2, 3]
 
 function post4(nums){
+    let lastFour = nums.lastIndexOf(4);
 
+    return nums.slice(lastFour + 1);
 }
 
 // We'll say that an element in an array is "alone" if there are values before and after it, and those values are different from it. Return a version of the given array where every instance of the given value which is alone is replaced by whichever value to its left or right is larger.
@@ -504,7 +639,19 @@ function post4(nums){
 // notAlone ([3, 4], 3) → [3, 4]
 
 function notAlone(nums, val){
+   let result = [...nums];
 
+    for (let i = 1; i < nums.length - 1; i++) {
+        if (
+            nums[i] === val &&
+            nums[i - 1] !== val &&
+            nums[i + 1] !== val
+        ) {
+            result[i] = Math.max(nums[i - 1], nums[i + 1]);
+        }
+    }
+
+    return result;
 }
 
 // Return an array that contains the exact same numbers as the given array, but rearranged so that all the zeros are grouped at the start of the array. The order of the non-zero numbers does not matter. So [1, 0, 0, 1] becomes [0, 0, 1, 1]. You may modify and return the given array or make a new array. 
@@ -516,7 +663,18 @@ function notAlone(nums, val){
 // zeroFont ([1, 0]) → [0, 1]
 
 function zeroFont(nums){
+   let zeros = [];
+    let others = [];
 
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] === 0) {
+            zeros.push(nums[i]);
+        } else {
+            others.push(nums[i]);
+        }
+    }
+
+    return zeros.concat(others);
 }
 
 // Return a version of the given array where all the 10's have been removed. The remaining elements should shift left towards the start of the array as needed, and the empty spaces a the end of the array should be 0. So [1, 10, 10, 2] yields [1, 2, 0, 0]. You may modify and return the given array or make a new array.
@@ -528,7 +686,19 @@ function zeroFont(nums){
 // withoutTen ([1, 99, 10]) → [1, 99, 0]
 
 function withoutTen(nums) {
+  let result = [];
 
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] !== 10) {
+            result.push(nums[i]);
+        }
+    }
+
+    while (result.length < nums.length) {
+        result.push(0);
+    }
+
+    return result;
 }
 
 // Return a version of the given array where each zero value in the array is replaced by the largest odd value to the right of the zero in the array. If there is no odd value to the right of the zero, leave the zero as a zero.
@@ -540,7 +710,23 @@ function withoutTen(nums) {
 // zeroMax ([0, 1, 0]) → [1, 1, 0]
 
 function zeroMax(nums){
- 
+  let result = [...nums];
+
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] === 0) {
+            let largestOdd = 0;
+
+            for (let j = i + 1; j < nums.length; j++) {
+                if (nums[j] % 2 !== 0 && nums[j] > largestOdd) {
+                    largestOdd = nums[j];
+                }
+            }
+
+            result[i] = largestOdd;
+        }
+    }
+
+    return result;
 }
 
 // Retrun an array that contains the exact same numbers as the given array, but rearranged so that all the even numbers come before all the odd numbers. Other than that, the numbers can be in any order. You may modify and return the given array, or make a new array.Math
@@ -549,7 +735,18 @@ function zeroMax(nums){
 
 
 function evenOdd(nums){
+   let even = [];
+    let odd = [];
 
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] % 2 === 0) {
+            even.push(nums[i]);
+        } else {
+            odd.push(nums[i]);
+        }
+    }
+
+    return even.concat(odd);
 }
 
 // This is slightly more difficult version of the famous FizzBuzz problem which is sometimes given as a first problem for job interviews. Consider the series of numbers beginning at start and running up to but not including end, so for example start=1 and end=5 gives the  series 1,2,3,4. Return a new array containing the string form of these numbers, except for multiples of 3, use "Fizz" instead of the number, for multiples of 5 use "Buzz", and for multiples of both 3 and 5 use "FizzBuzz". In JavaScript, you can use something.toString() to convert something to its string equivalent. You'll want push to add elements to the new array.
@@ -561,5 +758,19 @@ function evenOdd(nums){
 // fizzBuzz(1, 11) → ["1", "2", "Fizz", "4", "Buzz", "Fizz", "7", "8", "Fizz", "Buzz"]
 
 function fizzBuzz(start, end){
+   let result = [];
 
+    for (let i = start; i < end; i++) {
+        if (i % 3 === 0 && i % 5 === 0) {
+            result.push("FizzBuzz");
+        } else if (i % 3 === 0) {
+            result.push("Fizz");
+        } else if (i % 5 === 0) {
+            result.push("Buzz");
+        } else {
+            result.push(i.toString());
+        }
+    }
+
+    return result;
 }
