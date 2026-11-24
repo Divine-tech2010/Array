@@ -7,7 +7,23 @@
 // maxSpan ([1, 4, 2, 1, 4, 4, 4]) → 6
 
 function maxSpan(nums){
+     let max = 0;
 
+    for (let i = 0; i < nums.length; i++) {
+        for (let j = nums.length - 1; j >= i; j--) {
+            if (nums[i] === nums[j]) {
+                let span = j - i + 1;
+
+                if (span > max) {
+                    max = span;
+                }
+
+                break;
+            }
+        }
+    }
+
+    return max;
 }
 
 // Retrurn an array that contains exactly the same numbers as the given array, but rearranged so that every 3 is immediately followed by a 4. Do not move the 3's, but every other number may move. The array contains the same number of 3's and 4's, every 3 has a number after it that is not a 3, and a 3 appears in the array before any 4.
@@ -19,7 +35,21 @@ function maxSpan(nums){
 // fix34 ([3, 2, 2, 4]) → [3, 4, 2, 2]
 
 function fix34(nums){
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] === 3) {
+            for (let j = 0; j < nums.length; j++) {
+                if (nums[j] === 4 && (j === 0 || nums[j - 1] !== 3)) {
+                    let temp = nums[i + 1];
+                    nums[i + 1] = nums[j];
+                    nums[j] = temp;
 
+                    break;
+                }
+            }
+        }
+    }
+
+    return nums;
 }
 
 // (This is a slightly harder version of the fix34 problem.) Return an array that contains exactly the same numbers as the given array, but rearranged so that every 4 is immediately followed by a 5. Do not move the 4's, but every other number may move. The array contains the same number of 4's and 5's, and every 4 has a number after it that is not a 4. In this version, 5's may appear anywhere in the original array.
@@ -31,7 +61,21 @@ function fix34(nums){
 // fix45 ([1, 4, 1, 5, 5, 4, 1]) → [1, 4, 5, 1, 1, 4, 5]
 
 function fix45(nums){
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] === 4) {
+            for (let j = 0; j < nums.length; j++) {
+                if (nums[j] === 5 && (j === 0 || nums[j - 1] !== 4)) {
+                    let temp = nums[i + 1];
+                    nums[i + 1] = nums[j];
+                    nums[j] = temp;
 
+                    break;
+                }
+            }
+        }
+    }
+
+    return nums;
 }
 
 // Given an non-empty array, return true if there is a place to split the array so that the sum of the numbers on one side is equal to the sum of the numbers on the other side.
@@ -43,7 +87,24 @@ function fix45(nums){
 // canBalance ([10, 10]) → true 
 
 function canBalance(nums){
+    for (let i = 0; i <= nums.length; i++) {
+        let left = 0;
+        let right = 0;
 
+        for (let j = 0; j < i; j++) {
+            left += nums[j];
+        }
+
+        for (let k = i; k < nums.length; k++) {
+            right += nums[k];
+        }
+
+        if (left === right) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 // Given two arrays of numbers sorted in increasing order, outer and inner, return true if all of the numbers in inner appear in outer. The best solution makes only a single "linear" pass of both arrays, taking advantage of the fact that both arrays are already in sorted order. 
@@ -55,7 +116,18 @@ function canBalance(nums){
 // linearIn ([1, 2, 4, 4, 6], [2, 4]) → true 
 
 function linearIn(outer, inner){
+     let i = 0;
+    let j = 0;
 
+    while (i < outer.length && j < inner.length) {
+        if (outer[i] === inner[j]) {
+            j++;
+        }
+
+        i++;
+    }
+
+    return j === inner.length;
 }
 
 // Given n>= 0, create an array length n*n with the following pattern, shown here for n=3 : [0, 0, 1, 0, 2, 1, 3, 2, 1] (spaces added to show the 3 groups). 
@@ -67,7 +139,19 @@ function linearIn(outer, inner){
 // squareUp(4) → [0, 0, 0, 1, 0, 0, 2, 1, 0, 3, 2, 1, 4, 3, 2, 1]
 
 function squareUp(n){
+     let result = [];
 
+    for (let i = 1; i <= n; i++) {
+        for (let j = n; j >= 1; j--) {
+            if (j <= i) {
+                result.push(j);
+            } else {
+                result.push(0);
+            }
+        }
+    }
+
+    return result;
 }
 
 // Given n>=0, create an array with the pattern [1, 1, 2, 1, 2, 3, ... 1, 2, 3 ... n] (spaces added to show the grouping). Note that the length of the array will be 1 + 2 + 3 ... + n, which is known to sum to exactly n*(n + 1)/2.
@@ -79,7 +163,15 @@ function squareUp(n){
 // seriesUp(2) → [1, 1, 2]
 
 function seriesUp(n){
+    let result = [];
 
+    for (let i = 1; i <= n; i++) {
+        for (let j = 1; j <= i; j++) {
+            result.push(j);
+        }
+    }
+
+    return result;
 }
 
 // We'll say that a "mirror" section in an array is a group of contiguous elements such that somewhere in the array, the same group appears in reverse order. For example, the largest mirror scetion in [1, 2, 3, 8, 9, 3, 2, 1] is length 3 (the [1, 2, 3] part). Return the size of the largest mirror section found in the given array.
@@ -91,7 +183,27 @@ function seriesUp(n){
 // maxMirror([7, 1, 2, 9, 7, 2, 1]) → 2 
 
 function maxMirror(nums){
+     let max = 0;
 
+    for (let i = 0; i < nums.length; i++) {
+        for (let j = nums.length - 1; j >= 0; j--) {
+            let count = 0;
+
+            while (
+                i + count < nums.length &&
+                j - count >= 0 &&
+                nums[i + count] === nums[j - count]
+            ) {
+                count++;
+            }
+
+            if (count > max) {
+                max = count;
+            }
+        }
+    }
+
+    return max;
 }
 
 // Say that a "clump" in an array is a series of 2 or more adjacent elements of the same value. Return the number of clumps in the given array. 
@@ -103,5 +215,19 @@ function maxMirror(nums){
 // countClumps([1, 1, 1, 1, 1]) → 1
 
 function countClumps(nums){
+     let count = 0;
+    let inClump = false;
 
+    for (let i = 0; i < nums.length - 1; i++) {
+        if (nums[i] === nums[i + 1]) {
+            if (!inClump) {
+                count++;
+                inClump = true;
+            }
+        } else {
+            inClump = false;
+        }
+    }
+
+    return count;
 }
